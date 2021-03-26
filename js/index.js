@@ -12,28 +12,49 @@ window.addEventListener('resize', function()
     camera.updateProjectionMatrix();
 })
 
-controls = new THREE.OrbitControls(camera, renderer.domElement);
-// create the shape
-var geometry = new THREE.BoxGeometry(1, 1, 1);
-var cubeMaterials = 
-[
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/1.jpg'), side: THREE.DoubleSide}),
-];
-// creare a material, colour or image texture
-var material = new THREE.MeshFaceMaterial(cubeMaterials);
-var cube = new THREE.Mesh( geometry, material);
-scene.add(cube);
-camera.position.z = 3;
+document.addEventListener("keydown", onDocumentKeyDown, false);
+function onDocumentKeyDown(event) {
+    var keyCode = event.which;
+    if (keyCode == 39 && pants.position.x >= -0.65) {
+        pants.position.x -= xSpeed;
+    } else if (keyCode == 37 && pants.position.x <= 0.65) {
+        pants.position.x += xSpeed;
+    }
+};
+var xSpeed = 0.05;
+
+//controls = new THREE.OrbitControls(camera, renderer.domElement);
+//controls.enableDamping = false;
+
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+scene.add( directionalLight );
+
+const loader = new THREE.ObjectLoader();
+var pants;
+loader.load(
+	"json/scene.json",
+
+	// onLoad callback
+	// Here the loaded data is assumed to be an object
+	function ( obj ) {
+        pants  = obj.getObjectByName( "jeans.obj" );
+        obj.position.z = 10;
+        obj.position.y = -1;
+		// Add the loaded object to the scene
+		scene.add( obj );
+	},
+);
+camera.position.y = 0.5;
+camera.rotation.y = Math.PI;
 // game logic
 var update = function()
 {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    if(pants != undefined && pants.position.z < 19 )
+    {
+        pants.position.z += 0.01;
+        camera.position.z = pants.position.z + 8;
+        console.log(pants.position.x);
+    }
 };
 // draw scene
 var render = function()
