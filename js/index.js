@@ -2,7 +2,7 @@ const startButton = document.getElementById( 'startButton' );
 startButton.addEventListener( 'click', init );
 
 const xSpeed = 0.05;
-const zSpeed = 0.01;
+const zSpeed = 0.05;
 
 function init() {
     const overlay = document.getElementById( 'overlay' );
@@ -52,6 +52,7 @@ function init() {
     );
     camera.position.y = 0.5;
     camera.rotation.y = Math.PI;
+    var n = 0;
     // game logic
     var update = function()
     {
@@ -59,6 +60,12 @@ function init() {
         {
             pants.position.z += zSpeed;
             camera.position.z = pants.position.z + 8;
+        }
+        //When the object finish the scene show pop-info
+        if (pants.position.z >= 19 && n === 0){
+            let pop_info = document.getElementById("page");
+            pop_info.style.display = "block";
+            n++;
         }
     };
     // draw scene
