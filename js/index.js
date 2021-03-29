@@ -2,7 +2,7 @@ const startButton = document.getElementById( 'startButton' );
 startButton.addEventListener( 'click', init );
 
 const xSpeed = 0.05;
-const zSpeed = 0.05;
+const zSpeed = 0.01;
 
 function init() {
     const overlay = document.getElementById( 'overlay' );
@@ -12,8 +12,10 @@ function init() {
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1 ,1000);
     var renderer = new THREE.WebGLRenderer();
     const listener = new THREE.AudioListener();
+
+    var isFinish = false;
     
-    responsiveWindow(renderer);
+    responsiveWindow(renderer, camera);
 
     camera.add( listener );
     PlaySong(listener);
@@ -38,12 +40,12 @@ function init() {
     const loader = new THREE.ObjectLoader();
     var pants;
     loader.load(
-    	"json/scene.json",
+    	"json/scene1.json",
 
     	// onLoad callback
     	// Here the loaded data is assumed to be an object
     	function ( obj ) {
-            pants  = obj.getObjectByName( "jeans.obj" );
+            pants  = obj.getObjectByName( "cotton.obj" );
             obj.position.z = 10;
             obj.position.y = -1;
     		// Add the loaded object to the scene
@@ -52,7 +54,6 @@ function init() {
     );
     camera.position.y = 0.5;
     camera.rotation.y = Math.PI;
-    var n = 0;
     // game logic
     var update = function()
     {
@@ -62,10 +63,10 @@ function init() {
             camera.position.z = pants.position.z + 8;
         }
         //When the object finish the scene show pop-info
-        if (pants.position.z >= 19 && n === 0){
+        if (pants != undefined && pants.position.z >= 19 && isFinish === false){
             let pop_info = document.getElementById("page");
             pop_info.style.display = "block";
-            n++;
+            isFinish = true;
         }
     };
     // draw scene

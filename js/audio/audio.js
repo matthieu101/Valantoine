@@ -5,7 +5,7 @@ function PlaySong(listener)
 
     // load a sound and set it as the Audio object's buffer
     const audioLoader = new THREE.AudioLoader();
-    audioLoader.load( 'sounds/attack-on-titan-opening-6.mp3', function( buffer ) {
+    audioLoader.load( 'sounds/peder-b-helland-deep-in-the-forest.mp3', function( buffer ) {
     	sound.setBuffer( buffer );
     	sound.setLoop( true );
     	sound.setVolume( 0.5 );
