@@ -1,5 +1,9 @@
+/* ******* */
+/* General */
+/* ******* */
 body {
     margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 canvas {
@@ -7,18 +11,9 @@ canvas {
     height: 100%;
 }
 
-#page {
-    display:none;
-    z-index: 3;
-    position: absolute;
-    top: 0;
-    right: 0;
-    flex-direction: column;
-    width: 550px;
-    height: 100%;
-    background: white;
-}
-
+/* ******* */
+/* Accueil */
+/* ******* */
 #overlay {
 	position: absolute;
 	font-size: 16px;
@@ -44,3 +39,73 @@ canvas {
 	text-transform: uppercase;
 	cursor: pointer;
 }
+
+/* *************** */
+/* Chapter End box */
+/* *************** */
+.page {
+    display:none;
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    width: 550px;
+    height: 100%;
+    background: white;
+}
+.chapt_nbr{
+	display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 24px;
+    line-height: 44px;
+    color: white;
+    background: red;
+    position: absolute;
+    top: 20px;
+    left: -22px;
+}
+.chapter-detail-header{
+    position: relative;
+	padding: 45px 45px 0px 45px;
+    height: 55%;
+    background-color: #d7ffe6;
+}
+.chapter-detail-header h2{
+	font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.chapter-detail-header h3{
+	
+}
+.chapter-detail-header svg {
+    width: 100%;
+    left: 0;
+    bottom: -20%;
+    position: absolute;
+    z-index: 89;
+}
+.page p {
+    line-height: 25px;
+}
+.chapter-detail-header p {
+    z-index: 1000;
+    position: absolute;
+}
+.chapter-detail-footer {
+    padding: 45px;
+    color:white;
+    height: 45%;
+    background-color: #56664b;
+}
+
+.chapter-detail-footer > div:nth-child(1) {
+    padding: 45px;
+}
+
+
