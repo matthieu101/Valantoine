@@ -1,4 +1,4 @@
-function responsiveWindow(renderer, camra){
+function responsiveWindow(renderer, camera){
     renderer.setSize( window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     window.addEventListener('resize', function()

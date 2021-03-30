@@ -1,20 +1,52 @@
 const startButton = document.getElementById( 'startButton' );
+const nextStep = document.getElementById( 'nextStep' );
 startButton.addEventListener( 'click', init );
+nextStep.addEventListener( 'click', changeScene);
 
 const xSpeed = 0.05;
 const zSpeed = 0.05;
+var scene;
+var camera;
+var renderer;
+var player;
+var isFinish = false;
+var chapter = "chapter1";
 
 // var loaded to check if ressources are loaded 
 var loadingManager = null;
 var RESOURCES_LOADED = false;
 
+function changeScene() {
+    scene = new THREE.Scene();
+    camera.position.z = 0;
+    player.position.z = 0;
+    isFinish = false;
+    chapter = 'chapter2';
+    let pop_info = document.getElementById("chapter1");
+    pop_info.style.display = "none";
+    const loader = new THREE.ObjectLoader(loadingManager);
+    loader.load(
+        "json/scene2.json",
+
+        // onLoad callback
+        // Here the loaded data is assumed to be an object
+        function ( obj ) {
+            player  = obj.getObjectByName( "cotton.obj" );
+            obj.position.z = 10;
+            obj.position.y = -1;
+            // Add the loaded object to the scene
+            scene.add( obj );
+        },
+    );
+};
+
 function init() {
     const overlay = document.getElementById( 'overlay' );
 	overlay.remove();
 
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1 ,1000);
-    var renderer = new THREE.WebGLRenderer();
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1 ,1000);
+    renderer = new THREE.WebGLRenderer();
     const listener = new THREE.AudioListener();
     // Loading Manager
     loadingManager = new THREE.LoadingManager();
@@ -27,8 +59,6 @@ function init() {
 		console.log("loaded all resources");
 		RESOURCES_LOADED = true;
 	};
-
-    var isFinish = false;
     
     responsiveWindow(renderer, camera);
 
@@ -38,10 +68,10 @@ function init() {
     document.addEventListener("keydown", onDocumentKeyDown, false);
     function onDocumentKeyDown(event) {
         var keyCode = event.which;
-        if (keyCode == 39 && pants.position.x >= -0.65) {
-            pants.position.x -= xSpeed;
-        } else if (keyCode == 37 && pants.position.x <= 0.65) {
-            pants.position.x += xSpeed;
+        if (keyCode == 39 && player.position.x >= -0.65) {
+            player.position.x -= xSpeed;
+        } else if (keyCode == 37 && player.position.x <= 0.65) {
+            player.position.x += xSpeed;
         }
     };
     
@@ -54,14 +84,13 @@ function init() {
     scene.add( directionalLight );
 
     const loader = new THREE.ObjectLoader(loadingManager);
-    var pants;
     loader.load(
-    	"json/scene2.json",
+    	"json/scene1.json",
 
     	// onLoad callback
     	// Here the loaded data is assumed to be an object
     	function ( obj ) {
-            pants  = obj.getObjectByName( "cotton.obj" );
+            player  = obj.getObjectByName( "cotton.obj" );
             obj.position.z = 10;
             obj.position.y = -1;
     		// Add the loaded object to the scene
@@ -74,14 +103,15 @@ function init() {
     // game logic
     var update = function()
     {
-        if(pants != undefined && pants.position.z < 19 )
+        if(player != undefined && player.position.z < 19 )
         {
-            pants.position.z += zSpeed;
-            camera.position.z = pants.position.z + 8;
+            player.position.z += zSpeed;
+            camera.position.z = player.position.z + 8;
         }
         //When the object finish the scene show pop-info
-        if (pants != undefined && pants.position.z >= 19 && isFinish === false){
-            let pop_info = document.getElementById("chapter1");
+        if (player != undefined && player.position.z >= 19 && isFinish === false){
+            console.log('yes');
+            let pop_info = document.getElementById(chapter);
             pop_info.style.display = "block";
             isFinish = true;
         }
@@ -99,5 +129,7 @@ function init() {
         render();
     };
     GameLoop();
+
+    
 }
 
