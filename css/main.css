@@ -3,6 +3,9 @@
 /* ******* */
 body {
     margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -52,7 +55,7 @@ canvas {
     flex-direction: column;
     width: 550px;
     height: 100%;
-    background: white;
+    background: #56664b;
 }
 .chapt_nbr{
 	display: block;
@@ -83,13 +86,13 @@ canvas {
 .chapter-detail-header h3{
 	
 }
-.chapter-detail-header svg {
+/* .chapter-detail-header svg {
     width: 100%;
     left: 0;
     bottom: -20%;
     position: absolute;
     z-index: 89;
-}
+} */
 .page p {
     line-height: 25px;
 }
@@ -98,12 +101,23 @@ canvas {
     position: absolute;
 }
 .chapter-detail-footer {
-    padding: 45px;
-    color:white;
-    height: 45%;
-    background-color: #56664b;
+    position: relative;
+    padding: 55px 20px 45px;
+    color: white;
+    
 }
-
+.chapter-detail-footer:before {
+    background-image: url(../img/FarmLandscape.svg);
+    content: '';
+    position: absolute;
+    top: -345px;
+    left: 0;
+    display: block;
+    height: 500px;
+    width: 550px;
+    background-size: 550px 500px;
+    background-position: 0% 0%;
+}
 .chapter-detail-footer > div:nth-child(1) {
     padding: 45px;
 }
