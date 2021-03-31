@@ -8,7 +8,7 @@ function PlaySong(listener)
     audioLoader.load( 'sounds/peder-b-helland-deep-in-the-forest.mp3', function( buffer ) {
     	sound.setBuffer( buffer );
     	sound.setLoop( true );
-    	sound.setVolume( 0.0 );
+    	sound.setVolume( 0.5 );
     	sound.play();
     });
 }

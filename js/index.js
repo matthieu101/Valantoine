@@ -68,10 +68,13 @@ function init() {
     document.addEventListener("keydown", onDocumentKeyDown, false);
     function onDocumentKeyDown(event) {
         var keyCode = event.which;
-        if (keyCode == 39 && player.position.x >= -0.65) {
-            player.position.x -= xSpeed;
-        } else if (keyCode == 37 && player.position.x <= 0.65) {
-            player.position.x += xSpeed;
+        if (player.position.z < 19)
+        {
+            if (keyCode == 39 && player.position.x >= -0.65) {
+                player.position.x -= xSpeed;
+            } else if (keyCode == 37 && player.position.x <= 0.65) {
+                player.position.x += xSpeed;
+            }
         }
     };
     
